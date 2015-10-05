@@ -21,10 +21,6 @@ PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
-# dt.img
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/dt.img:dt.img
-
 # ANT+
 PRODUCT_PACKAGES += \
     AntHalService \
@@ -158,8 +154,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.fm.transmitter=false
 
 # GPS
-PRODUCT_PACKAGES += \
-    gps.msm8226
+#PRODUCT_PACKAGES += \
+#    gps.msm8226
 
 PRODUCT_PACKAGES += \
     flp.conf \
@@ -191,17 +187,13 @@ PRODUCT_COPY_FILES += \
     #$(LOCAL_PATH)/keylayout/msm8226-tapan-snd-card_Button_Jack0.kl:system/usr/keylayout/msm8226-tapan-snd-card_Button_Jack0.kl \
     #$(LOCAL_PATH)/keylayout/msm8226-tapan-snd-card_Button_Jack1.kl:system/usr/keylayout/msm8226-tapan-snd-card_Button_Jack1.kl
 
-# Open camera to fix front camera
-PRODUCT_PACKAGES += \
-    OpenCamera
-
 # Keystore
 PRODUCT_PACKAGES += \
     keystore.msm8226
 
 # Lights
-PRODUCT_PACKAGES += \
-    lights.msm8226
+#PRODUCT_PACKAGES += \
+#    lights.msm8226
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -306,7 +298,7 @@ PRODUCT_PACKAGES += \
 # WiFi config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
-    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini
 
 PRODUCT_PACKAGES += \
 	WCNSS_qcom_wlan_nv_h3w.bin
@@ -324,12 +316,6 @@ PRODUCT_PACKAGES += \
     libwcnss_qmi \
     wcnss_service
 
-# Root the ROM even if it is user build, sorry I broke the rules :P
-ifeq ($(TARGET_BUILD_VARIANT),user)
-PRODUCT_PACKAGES += \
-    su
-endif
-
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
 
@@ -337,3 +323,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.wfd.enable=1 \
     persist.sys.wfd.virtual=0
+
+#for debugging
+    ro.adb.secure=0 \
+    ro.secure=0 \
+    ro.debuggable=1
+
+$(call inherit-product, device/qcom/common/Android.mk)
+$(call inherit-product-if-exists, vendor/xiaomi/dior/dior-vendor.mk)

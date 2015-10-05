@@ -14,15 +14,12 @@
 # limitations under the License.
 #
 
-USE_CAMERA_STUB := true
+LOCAL_PATH := device/xiaomi/dior
+
+# Includes
+TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
 BOARD_VENDOR := xiaomi
-
-# Default toolchain
-TARGET_GCC_VERSION_EXP := 4.8
-
-# External apps on SD
-TARGET_EXTERNAL_APPS = sdcard1
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8226
@@ -45,16 +42,9 @@ TARGET_CPU_VARIANT := krait
 # Kernel
 TARGET_PREBUILT_KERNEL := device/xiaomi/dior/kernel
 TARGET_KERNEL_SOURCE := kernel/xiaomi/dior
-ifeq ("$(wildcard $(TARGET_KERNEL_SOURCE))","")
-ifneq ("$(wildcard $(TARGET_PREBUILT_KERNEL))","")
-$(shell mkdir -p $(OUT)/obj)
-$(shell mkdir -p $(OUT)/obj/KERNEL_OBJ)
-$(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
-endif
-endif
 TARGET_KERNEL_CONFIG := cyanogenmod_dior_defconfig
-#TARGET_KERNEL_CONFIG := cm_dior_defconfig
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=dior user_debug=31 msm_rtb.filter=0x37
+TARGET_KERNEL_CONFIG := dior_user_defconfig
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=dior user_debug=31 msm_rtb.filter=0x37 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
@@ -100,8 +90,8 @@ BOARD_HAVE_QCOM_FM := true
 QCOM_FM_ENABLED := true
 
 # GPS
-TARGET_GPS_HAL_PATH := device/xiaomi/dior/gps
-TARGET_PROVIDES_GPS_LOC_API := true
+#TARGET_GPS_HAL_PATH := device/xiaomi/dior/gps
+#TARGET_PROVIDES_GPS_LOC_API := true
 
 # No old RPC for prop
 TARGET_NO_RPC := true
@@ -126,6 +116,13 @@ MAX_EGL_CACHE_KEY_SIZE := 12*1024
 # of the device.
 MAX_EGL_CACHE_SIZE := 2048*1024
 
+# Media
+COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
+
+# Webkit
+ENABLE_WEBGL            := true
+TARGET_FORCE_CPU_UPLOAD := true
+
 # Hardware tunables
 BOARD_HARDWARE_CLASS := device/xiaomi/dior/cmhw/
 
@@ -133,9 +130,6 @@ BOARD_HARDWARE_CLASS := device/xiaomi/dior/cmhw/
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_dior
 TARGET_LIBINIT_DEFINES_FILE := device/xiaomi/dior/init/init_dior.c
-
-# Lights
-TARGET_PROVIDES_LIBLIGHT := true
 
 # Power
 TARGET_POWERHAL_VARIANT := qcom
@@ -147,7 +141,6 @@ COMMON_GLOBAL_CFLAGS += -D__ARM_USE_PLD -D__ARM_CACHE_LINE_SIZE=64
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
-#TARGET_USES_QCOM_BSP := true
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 # Recovery
@@ -164,6 +157,10 @@ BOARD_SEPOLICY_DIRS += device/xiaomi/dior/sepolicy
 BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun0/file
+
+MALLOC_IMPL := dlmalloc
+
+BOARD_USES_LEGACY_MMAP := true
 
 # Wifi
 BOARD_HAS_QCOM_WLAN := true

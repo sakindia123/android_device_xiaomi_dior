@@ -76,29 +76,23 @@ on early-boot
 on boot
     # Enable writing to led blink node from userspace
     chown system system /sys/class/leds/red/blink
-    chown system system /sys/class/leds/red/duty_pcts
-    chown system system /sys/class/leds/red/ramp_step_ms
     chown system system /sys/class/leds/green/blink
-    chown system system /sys/class/leds/green/duty_pcts
-    chown system system /sys/class/leds/green/ramp_step_ms
     chown system system /sys/class/leds/blue/blink
-    chown system system /sys/class/leds/blue/duty_pcts
-    chown system system /sys/class/leds/blue/ramp_step_ms
-
-	chown system system /sys/class/leds/flashlight/brightness
-	chmod 0666 /sys/class/leds/flashlight/brightness
-	
-	chown system system /sys/class/leds/led:flash_0/brightness
-	chmod 0666 /sys/class/leds/led:flash_0/brightness
-	
-	chown system system /sys/class/leds/led:flash_1/brightness
-	chmod 0666 /sys/class/leds/led:flash_1/brightness
-	
-	chown system system /sys/class/leds/led:flash_torch/brightness
-	chmod 0666 /sys/class/leds/led:flash_torch/brightness
-
-	chown system system /sys/class/leds/button-backlight/brightness
-	chmod 0666 /sys/class/leds/button-backlight/brightness
+    chown system system /sys/class/timed_output/vibrator/amp
+    chown system system /sys/class/leds/button-backlight/brightness
+    chown system system /sys/class/leds/button-backlight/max_brightness
+    chown system system /sys/devices/virtual/graphics/fb0/rgb
+    # Enable writing to brightness node under torch-light from userspace
+    chown system camera /sys/class/leds/flashlight/brightness
+    chown system system /sys/class/input/input0/enabled
+    chown system system /sys/class/input/input1/enabled
+    chown system system /sys/class/input/input2/enabled
+    chown system system /sys/class/input/input3/enabled
+    chown system system /sys/class/input/input4/enabled
+    chown system system /sys/class/input/input5/enabled
+    chown system system /sys/class/input/input6/enabled
+    chown system system /sys/bus/i2c/devices/5-004a/golden_ref
+    chown system system /sys/bus/i2c/devices/5-004b/golden_ref
 
     chown bluetooth bluetooth /sys/module/hci_smd/parameters/hcismd_set
     chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
