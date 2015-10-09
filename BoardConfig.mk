@@ -39,6 +39,10 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_MEMCPY_BASE_OPT_DISABLE := true
 TARGET_CPU_VARIANT := krait
 
+#Custom GCC
+TARGET_TOOLS_PREFIX  := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/ubertc-arm-linux-androideabi-4.9/bin/arm-linux-androideabi-
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/ubertc-arm-eabi-4.9/bin/arm-eabi-
+
 # Kernel
 TARGET_PREBUILT_KERNEL := device/xiaomi/dior/kernel
 TARGET_KERNEL_SOURCE := kernel/xiaomi/dior
