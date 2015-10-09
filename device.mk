@@ -27,11 +27,6 @@ PRODUCT_PACKAGES += \
     com.dsi.ant.antradio_library \
     libantradio
 
-# Art
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.image-dex2oat-filter=everything \
-    dalvik.vm.dex2oat-filter=everything
-
 # Audio
 PRODUCT_PACKAGES += \
     audiod \
@@ -60,10 +55,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     init.qcom.bt.sh
 
-# Camera
-#PRODUCT_PACKAGES += \
-#	camera.msm8226
-
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
 
@@ -84,22 +75,6 @@ PRODUCT_PACKAGES += \
     linville.key.pub.pem \
     regdbdump \
     regulatory.bin
-
-# Default Audio
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.config.ringtone=MI.ogg \
-    ro.config.notification_sound=FadeIn.ogg \
-    ro.config.alarm_alert=GoodMorning.ogg
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/media/FadeIn.ogg:system/media/audio/notifications/FadeIn.ogg \
-    $(LOCAL_PATH)/media/FadeOut.ogg:system/media/audio/notifications/FadeOut.ogg \
-    $(LOCAL_PATH)/media/GoodMorning.ogg:system/media/audio/alarms/GoodMorning.ogg \
-    $(LOCAL_PATH)/media/MI.ogg:system/media/audio/ringtones/MI.ogg
-
-# Dirac Audio Effect
-PRODUCT_COPY_FILES += $(LOCAL_PATH)/configs/diracmobile.config:system/vendor/etc/diracmobile.config
-PRODUCT_PACKAGES += libdirac
 
 # Display
 PRODUCT_PACKAGES += \
