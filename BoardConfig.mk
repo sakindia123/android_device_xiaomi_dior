@@ -101,8 +101,8 @@ BOARD_HAVE_QCOM_FM := true
 QCOM_FM_ENABLED := true
 
 # GPS
-#TARGET_GPS_HAL_PATH := device/xiaomi/dior/gps
-#TARGET_PROVIDES_GPS_LOC_API := true
+TARGET_GPS_HAL_PATH := $(LOCAL_PATH)/gps
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := msm8226
 
 # No old RPC for prop
 TARGET_NO_RPC := true
