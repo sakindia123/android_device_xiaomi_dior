@@ -39,6 +39,13 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_MEMCPY_BASE_OPT_DISABLE := true
 TARGET_CPU_VARIANT := krait
 
+# Flags
+COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
+COMMON_GLOBAL_CFLAGS += -D__ARM_USE_PLD -D__ARM_CACHE_LINE_SIZE=64
+
+# QCOM hardware
+BOARD_USES_QCOM_HARDWARE := true
+
 #Custom GCC
 TARGET_TOOLS_PREFIX  := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/ubertc-arm-linux-androideabi-4.9/bin/arm-linux-androideabi-
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/ubertc-arm-eabi-4.9/bin/arm-eabi-
@@ -130,22 +137,11 @@ TARGET_FORCE_CPU_UPLOAD := true
 # Hardware tunables
 BOARD_HARDWARE_CLASS := device/xiaomi/dior/cmhw/
 
-# Vendor Init
-TARGET_UNIFIED_DEVICE := true
-TARGET_INIT_VENDOR_LIB := libinit_dior
-TARGET_LIBINIT_DEFINES_FILE := device/xiaomi/dior/init/init_dior.c
+# Init
+TARGET_INIT_VENDOR_LIB := libinit_msm
 
 # Power
 TARGET_POWERHAL_VARIANT := qcom
-
-# Flags
-COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_BSP
-COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
-COMMON_GLOBAL_CFLAGS += -D__ARM_USE_PLD -D__ARM_CACHE_LINE_SIZE=64
-
-# QCOM hardware
-BOARD_USES_QCOM_HARDWARE := true
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := device/xiaomi/dior/rootdir/etc/fstab.qcom
