@@ -21,6 +21,34 @@ PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
+# Ramdisk
+PRODUCT_PACKAGES += \
+    fstab.qcom \
+    hsic.control.bt.sh \
+    init.ath3k.bt.sh \
+    init.class_main.sh \
+    init.mdm.sh \
+    init.qcom.audio.sh \
+    init.qcom.bt.sh \
+    init.qcom.class_core.sh \
+    init.qcom.coex.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.efs.sync.sh \
+    init.qcom.factory.sh \
+    init.qcom.fm.sh \
+    init.qcom.post_boot.sh \
+    init.qcom.rc \
+    init.qcom.sdio.sh \
+    init.qcom.sh \
+    init.qcom.ssr.sh \
+    init.qcom.syspart_fixup.sh \
+    init.qcom.usb.rc \
+    init.qcom.usb.sh \
+    init.qcom.wifi.sh \
+    init.target.rc \
+    qca6234-service.sh \
+    ueventd.qcom.rc
+
 # ANT+
 PRODUCT_PACKAGES += \
     AntHalService \
@@ -219,34 +247,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true \
     ro.vendor.extension_library=/vendor/lib/libqc-opt.so
-
-# Ramdisk
-PRODUCT_PACKAGES += \
-    fstab.qcom \
-    hsic.control.bt.sh \
-    init.ath3k.bt.sh \
-    init.class_main.sh \
-    init.mdm.sh \
-    init.qcom.audio.sh \
-    init.qcom.bt.sh \
-    init.qcom.class_core.sh \
-    init.qcom.coex.sh \
-    init.qcom.early_boot.sh \
-    init.qcom.efs.sync.sh \
-    init.qcom.factory.sh \
-    init.qcom.fm.sh \
-    init.qcom.post_boot.sh \
-    init.qcom.rc \
-    init.qcom.sdio.sh \
-    init.qcom.sh \
-    init.qcom.ssr.sh \
-    init.qcom.syspart_fixup.sh \
-    init.qcom.usb.rc \
-    init.qcom.usb.sh \
-    init.qcom.wifi.sh \
-    init.target.rc \
-    qca6234-service.sh \
-    ueventd.qcom.rc \
 
 # Sensors
 PRODUCT_COPY_FILES += \
