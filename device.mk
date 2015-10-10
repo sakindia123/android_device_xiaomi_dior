@@ -29,18 +29,20 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    audiod \
     audio.a2dp.default \
     audio.primary.msm8226 \
     audio.r_submix.default \
-    audio.usb.default
+    audio.usb.default \
+    audio_policy.msm8226 \
+    audiod \
+    tinymix
 
 PRODUCT_PACKAGES += \
     libaudio-resampler \
+    libaudioparameter \
     libqcompostprocbundle \
     libqcomvisualizer \
-    libqcomvoiceprocessing \
-    tinymix
+    libqcomvoiceprocessing
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio_effects.conf:system/vendor/etc/audio_effects.conf \
@@ -51,9 +53,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     bluetooth.hfp.client=1 \
     qcom.bt.dev_power_class=1
-
-PRODUCT_PACKAGES += \
-    init.qcom.bt.sh
 
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
@@ -155,13 +154,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/msm8226-tapan-snd-card_Button_Jack.kl:system/usr/keylayout/msm8226-tapan-snd-card_Button_Jack.kl \
     $(LOCAL_PATH)/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl
 
-    #$(LOCAL_PATH)/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
-    #$(LOCAL_PATH)/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
-    #$(LOCAL_PATH)/keylayout/ft5x06.kl:system/usr/keylayout/ft5x06.kl \
-    #$(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    #$(LOCAL_PATH)/keylayout/msm8226-tapan-snd-card_Button_Jack0.kl:system/usr/keylayout/msm8226-tapan-snd-card_Button_Jack0.kl \
-    #$(LOCAL_PATH)/keylayout/msm8226-tapan-snd-card_Button_Jack1.kl:system/usr/keylayout/msm8226-tapan-snd-card_Button_Jack1.kl
-
 # Keystore
 PRODUCT_PACKAGES += \
     keystore.msm8226
@@ -236,10 +228,31 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Ramdisk
 PRODUCT_PACKAGES += \
-    fstab.dior \
-    init.dior.rc \
-    init.dior.usb.rc \
-    ueventd.dior.rc
+    fstab.qcom \
+    hsic.control.bt.sh \
+    init.ath3k.bt.sh \
+    init.class_main.sh \
+    init.mdm.sh \
+    init.qcom.audio.sh \
+    init.qcom.bt.sh \
+    init.qcom.class_core.sh \
+    init.qcom.coex.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.efs.sync.sh \
+    init.qcom.factory.sh \
+    init.qcom.fm.sh \
+    init.qcom.post_boot.sh \
+    init.qcom.rc \
+    init.qcom.sdio.sh \
+    init.qcom.sh \
+    init.qcom.ssr.sh \
+    init.qcom.syspart_fixup.sh \
+    init.qcom.usb.rc \
+    init.qcom.usb.sh \
+    init.qcom.wifi.sh \
+    init.target.rc \
+    qca6234-service.sh \
+    ueventd.qcom.rc \
 
 # Sensors
 PRODUCT_COPY_FILES += \
@@ -262,37 +275,36 @@ PRODUCT_PACKAGES += \
 # We have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
-# Wifi
-PRODUCT_PACKAGES += \
-    hostapd_default.conf \
-    p2p_supplicant_overlay.conf \
-    wpa_supplicant_overlay.conf \
-    wpa_supplicant_wcn.conf
-
-
-# WiFi config
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
-    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini
-
-PRODUCT_PACKAGES += \
-	WCNSS_qcom_wlan_nv_h3w.bin
-
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
+    libwpa_client \
     hostapd \
     wpa_supplicant \
-    wpa_supplicant.conf
+    wpa_supplicant.conf \
+    wpa_supplicant_overlay.conf \
+    wpa_supplicant_wcn.conf \
+    p2p_supplicant_overlay.conf \
+    hostapd_default.conf \
+    hostapd.accept \
+    hostapd.deny
 
+# SoftAP
 PRODUCT_PACKAGES += \
     libcurl \
     libqsap_sdk \
     libQWiFiSoftApCfg \
-    libwcnss_qmi \
     wcnss_service
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
+
+# WiFi config
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/wifi/wifi_firmware/WCNSS_qcom_wlan_nv_h3gbl.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv_h3gbl.bin \
+    $(LOCAL_PATH)/wifi/wifi_firmware/WCNSS_qcom_wlan_nv_h3td.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv_h3td.bin \
+    $(LOCAL_PATH)/wifi/wifi_firmware/WCNSS_qcom_wlan_nv_h3w.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv_h3w.bin
 
 # WFD
 PRODUCT_PROPERTY_OVERRIDES += \

@@ -61,25 +61,37 @@
     <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
-                  USB interfaces.  If the device doesn't want to support tething over USB this should
+         USB interfaces.  If the device doesn't want to support tething over USB this should
          be empty.  An example would be "usb.*" -->
     <string-array translatable="false" name="config_tether_usb_regexs">
-        <item>"rndis0"</item>
+        <item>"usb\\d"</item>
+        <item>"rndis\\d"</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
-                  Wifi interfaces.  If the device doesn't want to support tethering over Wifi this
+         Wifi interfaces.  If the device doesn't want to support tethering over Wifi this
          should be empty.  An example would be "softap.*" -->
     <string-array translatable="false" name="config_tether_wifi_regexs">
         <item>"wlan0"</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
-                  bluetooth interfaces.  If the device doesn't want to support tethering over bluetooth this
+         bluetooth interfaces.  If the device doesn't want to support tethering over bluetooth this
          should be empty. -->
     <string-array translatable="false" name="config_tether_bluetooth_regexs">
+        <item>"bnep\\d"</item>
         <item>"bt-pan"</item>
     </string-array>
+
+    <!-- Array of ConnectivityManager.TYPE_xxxx values allowable for tethering -->
+    <!-- Common options are [1, 4] for TYPE_WIFI and TYPE_MOBILE_DUN or
+             <!== [0,1,5,7] for TYPE_MOBILE, TYPE_WIFI, TYPE_MOBILE_HIPRI and TYPE_BLUETOOTH -->
+    <integer-array translatable="false" name="config_tether_upstream_types">
+        <item>0</item>
+        <item>1</item>
+        <item>5</item>
+        <item>7</item>
+    </integer-array>
 
     <!-- Boolean indicating whether Softap requires reloading AP firmware -->
     <bool name="config_wifiApFirmwareReload">false</bool>
@@ -208,8 +220,9 @@
 
     <!-- Allow changing button backlight brightness in Settings -->
     <integer name="config_buttonBrightnessSettingDefault">2</integer>
+
     <!-- Comment out this line for now since it seems button brightness is not adjustible-->
-    <!--<bool name="config_deviceHasVariableButtonBrightness">true</bool>-->
+    <bool name="config_deviceHasVariableButtonBrightness">true</bool>
 
     <bool name="config_enableNetworkLocationOverlay" translatable="false">true</bool>
     <!-- Package name providing network location support. Used only when
@@ -273,8 +286,5 @@
          for "perf_profile_values" array. Leave it blank if the device do not support
          performance profiles  -->
     <string name="config_perf_profile_default_entry" translatable="false">1</string>
-
-    <!-- Package name providing default WebView implementation. -->
-    <string name="config_webViewPackageName" translatable="false">com.google.android.webview</string>
 
 </resources>
