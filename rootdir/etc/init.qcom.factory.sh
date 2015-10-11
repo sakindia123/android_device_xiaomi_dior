@@ -190,11 +190,9 @@
     chown -h system system /sys/class/leds/red/duty_pcts
     chown -h system system /sys/class/leds/red/ramp_step_ms
     chown -h system system /sys/class/leds/green/blink
-    chown -h system system /sys/class/leds/green/brightness
     chown -h system system /sys/class/leds/green/duty_pcts
     chown -h system system /sys/class/leds/green/ramp_step_ms
     chown -h system system /sys/class/leds/blue/blink
-    chown -h system system /sys/class/leds/blue/brightness
     chown -h system system /sys/class/leds/blue/duty_pcts
     chown -h system system /sys/class/leds/blue/ramp_step_ms
     chown -h system.system /sys/class/timed_output/vibrator/enable
