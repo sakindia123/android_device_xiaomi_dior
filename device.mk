@@ -19,6 +19,9 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
 # Ramdisk
@@ -147,21 +150,24 @@ PRODUCT_PACKAGES += \
     libstagefright_soft_ffmpegadec \
     libFFmpegExtractor
 
-# FM
+# FM Radio
 PRODUCT_PACKAGES += \
     FM2 \
     FMRecord \
     libqcomfm_jni \
     qcom.fmradio
 
-PRODUCT_BOOT_JARS += qcom.fmradio
-
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.fm.transmitter=false
+    hw.fm.internal_antenna=true
 
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8226
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.gps.qc_nlp_in_use=0 \
+    persist.loc.nlp_name=com.qualcomm.services.location \
+    ro.gps.agps_provider=1
 
 # IRSC
 PRODUCT_COPY_FILES += \
@@ -266,9 +272,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
-# We have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
-
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
     libwpa_client \
@@ -276,7 +279,6 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf \
     wpa_supplicant_overlay.conf \
-    wpa_supplicant_wcn.conf \
     p2p_supplicant_overlay.conf \
     hostapd_default.conf \
     hostapd.accept \
@@ -284,18 +286,24 @@ PRODUCT_PACKAGES += \
 
 # SoftAP
 PRODUCT_PACKAGES += \
-    libcurl \
     libqsap_sdk \
     libQWiFiSoftApCfg \
-    wcnss_service
+    wcnss_service \
+    libwcnss_qmi
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0
+    wifi.interface=wlan0 \
+    wlan.driver.ath=0 \
+    ro.use_data_netmgrd=true \
+    persist.data.netmgrd.qos.enable=true \
+    persist.data.tcpackprio.enable=true \
+    ro.data.large_tcp_window_size=true
 
 # WiFi config
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
-    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    kernel/xiaomi/dior/drivers/staging/prima/firmware_bin/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    kernel/xiaomi/dior/drivers/staging/prima/firmware_bin/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    kernel/xiaomi/dior/drivers/staging/prima/firmware_bin/WCNSS_qcom_wlan_nv.bin::system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
     $(LOCAL_PATH)/wifi/wifi_firmware/WCNSS_qcom_wlan_nv_h3gbl.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv_h3gbl.bin \
     $(LOCAL_PATH)/wifi/wifi_firmware/WCNSS_qcom_wlan_nv_h3td.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv_h3td.bin \
     $(LOCAL_PATH)/wifi/wifi_firmware/WCNSS_qcom_wlan_nv_h3w.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv_h3w.bin
